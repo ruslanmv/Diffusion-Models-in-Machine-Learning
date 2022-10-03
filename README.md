@@ -1,8 +1,8 @@
 
 
-# Introduction to Difussion Models in Artificial Intelligence
+# Introduction to Diffusion Models in Artificial Intelligence
 
-Dear all, today wee are going to discuss the buildings blocks of the Difussion Models applied to Artificial Intelligence.
+Dear all, today we are going to discuss the buildings blocks of the Diffusion Models applied to Artificial Intelligence.
 
 We are interested to know what are the basic elements of the.
 Text to Image works.
@@ -11,7 +11,7 @@ In particular the DALLE-2 and IMAGEN from Google.
 
 The achievement of those technologies has been possible thanks to the long scientific works during the History.
 
-In this blog post I will focus on the Difussion Models.
+In this blog post I will focus on the Diffusion Models.
 
 # Introduction
 
