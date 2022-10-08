@@ -75,8 +75,6 @@ Supports MNIST, Fashion-MNIST and CIFAR datasets.
 
 ![CIFAR Generation](assets/images/posts/README/cifar-166522978198127.gif)
 
-
-
 # Introduction
 
 One of the greatest ideas that allows the Artificial Intelligence build images from a text is the Markov chain.
@@ -95,6 +93,10 @@ A Markov process is a stochastic process that satisfies the Markov property. In 
 Diffusion models are a new class of state-of-the-art generative models that generate diverse high-resolution images. They have already attracted a lot of attention after OpenAI, Nvidia and Google managed to train large-scale models. Example architectures that are based on diffusion models are GLIDE, DALLE-2, Imagen, and the full open-source stable diffusion.
 
 But what is the main principle behind them?
+
+
+
+`Denoising Diffusion Probabilistic Models`, the recent paper by [Ho et al., 2020](https://arxiv.org/abs/2006.11239). A nice summary of the paper by the authors is available [here](https://hojonathanho.github.io/diffusion/). 
 
 In this blog post, we will dig our way up from the basic principles. There are already a bunch of different diffusion-based architectures. We will focus on the most prominent one, which is the Denoising Diffusion Probabilistic Models (DDPM) as initialized by [Sohl-Dickstein et al](https://arxiv.org/abs/1503.03585) and then proposed by [Ho. et al 2020](https://arxiv.org/abs/2006.11239). Various other approaches will be discussed to a smaller extent such as stable diffusion and score-based models.
 
