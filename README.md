@@ -48,9 +48,32 @@ conda install ipykernel
 python -m ipykernel install --user --name difussion --display-name "Python (difussion)"
 ```
 
-Then we install **Tensorflow**
 
 
+Use the provided [`entry.ipynb`](./entry.ipynb) notebook to train model and sample generated images. 
+
+Supports MNIST, Fashion-MNIST and CIFAR datasets.
+
+## Requirements
+
+* PyTorch
+* PyTorch-Lightning
+* Torchvision
+* imageio (for gif generation)
+
+## Generated Images
+
+### MNIST
+
+![MNIST Generation](assets/images/posts/README/mnist-166522978198025.gif)
+
+### Fashion-MNIST
+
+![Fashion MNIST Generation](assets/images/posts/README/fashion-166522978198126.gif)
+
+### CIFAR
+
+![CIFAR Generation](assets/images/posts/README/cifar-166522978198127.gif)
 
 
 
