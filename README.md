@@ -1,6 +1,6 @@
 
 
-# Introduction to Diffusion Models in Artificial Intelligence
+# Diffusion Models in Artificial Intelligence
 
 Dear all, today we are going to discuss the buildings blocks of the Diffusion Models applied to Artificial Intelligence.
 
@@ -12,6 +12,47 @@ In particular the DALLE-2 and IMAGEN from Google.
 The achievement of those technologies has been possible thanks to the long scientific works during the History.
 
 In this blog post I will focus on the Diffusion Models.
+
+
+
+## Step 1. Creation of the environment
+
+### Installation of Conda
+
+First you need to install anaconda at this [link](https://www.anaconda.com/products/individual)
+
+![img](assets/images/posts/README/1.jpg)
+
+I will create an environment called **difussion**, but you can put the name that you like.
+
+```
+conda create -n difussion python==3.7
+```
+
+If you are running anaconda for first time, you should init conda with the shell that you want to work, in this case I choose the cmd.exe
+
+```
+conda init cmd.exe
+```
+
+and then close and open the terminal
+
+```
+conda activate difussion
+```
+
+then in your terminal type the following commands:
+
+```
+conda install ipykernel
+python -m ipykernel install --user --name difussion --display-name "Python (difussion)"
+```
+
+Then we install **Tensorflow**
+
+
+
+
 
 # Introduction
 
@@ -524,8 +565,6 @@ $ accelerate launch train.py
 
 [19] Luo, Calvin.[ Understanding Diffusion Models: A Unified Perspective](https://doi.org/10.48550/arXiv.2208.11970). 25 Aug. 2022
 
-
-
 Sources: Colab Notebook - [https://colab.research.google.com/dri...](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa1FuaUNJeU50UHZNcVRxbXNwLWJWWmVabWwtUXxBQ3Jtc0tsamptVGRVRnVWaHFKNDFtbUo0RjhGVFJKNzdPdXB3VExEZURBSFRGX20tTlRVWVBpUTIwYmlScHplaURGVEZNZ3lCbUxxbzZSVWgtWlVlQU9TTlNyU2JfQWpra3VMT1JOTXFFdjFkUzBMcU1JZWMwYw&q=https%3A%2F%2Fcolab.research.google.com%2Fdrive%2F1_kbRZPTjnFgViPrmGcUsaszEdYa8XTpq%3Fusp%3Dsharing&v=ltLNYA3lWAQ) 
 
 Blog post - [https://stability.ai/blog/stable-diff...](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa19BSl9uYUptemJiWGZwYXh5N1AwOHduenRId3xBQ3Jtc0trZHhQVXV0dTVLM3dxU1Rtekl2bm1oUGFKekpGWUxKbmVEZ1ZBNFV5RkhFS0kydktOQng1TDVEek5EU3J5V013aDR0ZWNXczBzR0lYZWxMRlNKbDFZZnRXYkx2NjItRjFPNENuS241QWsxTTZjWldkOA&q=https%3A%2F%2Fstability.ai%2Fblog%2Fstable-diffusion-public-release&v=ltLNYA3lWAQ) 
@@ -536,4 +575,16 @@ Hugging Face Models - [https://huggingface.co/spaces/stabili...](https://www.you
 
 Paper - [https://arxiv.org/pdf/2112.10752.pdf](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa3pHeXFYckprYzdMYW1vNHF3THFxbGhEem9fZ3xBQ3Jtc0tsTWxQS1JLTWhjbWE1c1h0WVVyVHdWNXU0VXF2OVNsbkNhTW1vSjlNWkxfWG16OUpVWHVJbjVUSGczSDlmenprbExuVXFVa0owQUNYRzVsLVBEVjFJUThacGRZR1BPeld6cXRpS2NpYkRGUzBlSkwyVQ&q=https%3A%2F%2Farxiv.org%2Fpdf%2F2112.10752.pdf&v=ltLNYA3lWAQ)
 
-##  
+
+
+
+
+[GitHub - CompVis/latent-diffusion: High-Resolution Image Synthesis with Latent Diffusion Models](https://github.com/CompVis/latent-diffusion)
+
+##  https://github.com/CompVis/stable-diffusion
+
+
+
+
+
+https://developer.nvidia.com/blog/improving-diffusion-models-as-an-alternative-to-gans-part-2/
