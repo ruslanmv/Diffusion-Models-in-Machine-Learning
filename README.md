@@ -13,11 +13,7 @@ The achievement of those technologies has been possible thanks to the long scien
 
 In this blog post I will focus on the Diffusion Models.
 
-
-
 ## Step 1. Creation of the environment
-
-### Installation of Conda
 
 First you need to install anaconda at this [link](https://www.anaconda.com/products/individual)
 
@@ -48,8 +44,6 @@ conda install ipykernel
 python -m ipykernel install --user --name difussion --display-name "Python (difussion)"
 ```
 
-
-
 Use the provided [`entry.ipynb`](./entry.ipynb) notebook to train model and sample generated images. 
 
 Supports MNIST, Fashion-MNIST and CIFAR datasets.
@@ -60,6 +54,12 @@ Supports MNIST, Fashion-MNIST and CIFAR datasets.
 * PyTorch-Lightning
 * Torchvision
 * imageio (for gif generation)
+
+```
+pip install  torch pytorch_lightning  imageio torchvision
+```
+
+
 
 ## Generated Images
 
