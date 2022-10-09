@@ -56,12 +56,12 @@ is the identity matrix, indicating that each dimension has the same standard dev
 Note that $q(\mathbf{x}_t \vert \mathbf{x}_{t-1})$
 is still a normal distribution, defined by the mean $\boldsymbol{\mu}$ 
 and the variance $\boldsymbol{\Sigma}$
-where \boldsymbol{\mu}_t =\sqrt{1 - \beta_t} \mathbf{x}_{t-1} and $\boldsymbol{\Sigma}_t=\beta_t\mathbf{I}$
+where $\boldsymbol{\mu}_t =\sqrt{1 - \beta_t} \mathbf{x}_{t-1} and $\boldsymbol{\Sigma}_t=\beta_t\mathbf{I}$
 
 $\boldsymbol{\Sigma}$ will always be a diagonal matrix of variances (here \beta_t)
 
-Thus, we can go in a closed form from the input data \mathbf{x}_0
-to \mathbf{x}_{T} in a tractable way. 
+Thus, we can go in a closed form from the input data $\mathbf{x}_0$
+to $\mathbf{x}_{T}$ in a tractable way. 
 
 Mathematically, this is the posterior probability and is defined as:
 
