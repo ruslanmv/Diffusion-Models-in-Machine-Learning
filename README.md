@@ -4,25 +4,38 @@
 
 Dear all, today we are going to discuss the buildings blocks of the Diffusion Models applied to Artificial Intelligence.
 
-We are interested to know what are the basic elements of the.
-Text to Image works.
+In particular the theory behind the DALLE-2 and IMAGEN from Google.
 
-In particular the DALLE-2 and IMAGEN from Google.
+We are interested to know  how the diffusion works. The achievement of those technologies has been possible thanks to the long scientific works during the History.
 
-The achievement of those technologies has been possible thanks to the long scientific works during the History.
+We are going to  build an interesting program in python that will generate images by using the diffusion and recap the theory of the diffusion process. 
 
-In this blog post I will focus on the Diffusion Models.
+### MNIST
+
+![MNIST Generation](assets/images/posts/README/mnist-166522978198025.gif)
+
+### Fashion-MNIST
+
+![Fashion MNIST Generation](assets/images/posts/README/fashion-166522978198126.gif)
+
+### CIFAR
+
+![CIFAR Generation](assets/images/posts/README/cifar-166522978198127.gif)
+
+
 
 ## Step 1. Creation of the environment
 
-First you need to install anaconda at this [link](https://www.anaconda.com/products/individual)
+In this project we require a computer with GPU, you can use also SageMaker in AWS or simply you can install miniconda in your personal computer.
 
-![img](assets/images/posts/README/1.jpg)
+First you need to install miniconda at this [link](https://docs.conda.io/en/latest/miniconda.html)
+
+![image-20221009112058614](assets/images/posts/README/image-20221009112058614.png)
 
 I will create an environment called **difussion**, but you can put the name that you like.
 
 ```
-conda create -n difussion python==3.7
+conda create -n difussion python==3.8
 ```
 
 If you are running anaconda for first time, you should init conda with the shell that you want to work, in this case I choose the cmd.exe
@@ -58,22 +71,6 @@ Supports MNIST, Fashion-MNIST and CIFAR datasets.
 ```
 pip install  torch pytorch_lightning  imageio torchvision
 ```
-
-
-
-## Generated Images
-
-### MNIST
-
-![MNIST Generation](assets/images/posts/README/mnist-166522978198025.gif)
-
-### Fashion-MNIST
-
-![Fashion MNIST Generation](assets/images/posts/README/fashion-166522978198126.gif)
-
-### CIFAR
-
-![CIFAR Generation](assets/images/posts/README/cifar-166522978198127.gif)
 
 # Introduction
 
@@ -451,8 +448,6 @@ Finally, for more associations between [diffusion models and VAE](https://angust
 
 <img src="./images/denoising-diffusion.png" width="500px"></img>
 
-
-
 Implementation of <a href="https://arxiv.org/abs/2006.11239">Denoising Diffusion Probabilistic Model</a> in Pytorch. It is a new approach to generative modeling that may <a href="https://ajolicoeur.wordpress.com/the-new-contender-to-gans-score-matching-with-langevin-sampling/">have the potential</a> to rival GANs. It uses denoising score matching to estimate the gradient of the data distribution, followed by Langevin sampling to sample from the true distribution.
 
 This implementation was transcribed from the official Tensorflow version <a href="https://github.com/hojonathanho/diffusion">here</a>
@@ -602,8 +597,6 @@ Paper - [https://arxiv.org/pdf/2112.10752.pdf](https://www.youtube.com/redirect?
 
 
 
-
-
 [GitHub - CompVis/latent-diffusion: High-Resolution Image Synthesis with Latent Diffusion Models](https://github.com/CompVis/latent-diffusion)
 
 ##  https://github.com/CompVis/stable-diffusion
@@ -613,3 +606,5 @@ Paper - [https://arxiv.org/pdf/2112.10752.pdf](https://www.youtube.com/redirect?
 
 
 https://developer.nvidia.com/blog/improving-diffusion-models-as-an-alternative-to-gans-part-2/
+
+https://theaisummer.com/diffusion-models/
