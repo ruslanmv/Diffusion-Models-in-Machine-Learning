@@ -20,6 +20,7 @@ They take the input image $\mathbf{x}_0$ and gradually add Gaussian noise to it 
 We will call this the forward process. Notably, this is unrelated to the forward pass of a neural network.
 If you'd like, this part is necessary to generate the targets for our neural network (the image after applying 
 $t<T$ noise steps).
+
 Afterward, a neural network is trained to recover the original data by reversing the noising process. 
 By being able to model the reverse process, we can generate new data. 
 This is the so-called reverse diffusion process or, in general, the sampling process of a generative model.
@@ -98,13 +99,17 @@ at any arbitrary timestep. This will be our target later on to calculate our tra
 
 ### Variance schedule
 
-The variance parameter \beta_t can be fixed to a constant or chosen as a schedule over the T timesteps. In fact, one can define a variance schedule, which can be linear, quadratic, cosine etc. The original DDPM authors utilized a linear schedule increasing from \beta_1= 10^{-4}*β*1=10−4 to \beta_T = 0.02*β**T*=0.02. [Nichol et al. 2021](https://arxiv.org/abs/2102.09672) showed that employing a cosine schedule works even better.
+The variance parameter \beta_t can be fixed to a constant or chosen as a schedule over the T timesteps. In fact, one can define a variance schedule, which can be linear, quadratic, cosine etc. The original DDPM authors utilized a linear schedule increasing from $\beta_1= 10^{-4}$ to $\beta_T = 0.02$ [Nichol et al. 2021](https://arxiv.org/abs/2102.09672) showed that employing a cosine schedule works even better.
 
 [![variance-schedule](assets/images/posts/README/variance-schedule.png)]*Latent samples from linear (top) and cosine (bottom) schedules respectively. Source: [Nichol & Dhariwal 2021](https://arxiv.org/abs/2102.09672)*
 
 ## Reverse diffusion
 
-As $T \to \infty$ the latent $x_T$ is nearly an [isotropic](https://math.stackexchange.com/questions/1991961/gaussian-distribution-is-isotropic#:~:text=TLDR%3A An isotropic gaussian is,Σ is the covariance matrix.) Gaussian distribution. Therefore if we manage to learn the reverse distribution q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})*q*(**x***t*−1∣**x***t*) , we can sample x_T*x**T* from \mathcal{N}(0,\mathbf{I})N(0,**I**), run the reverse process and acquire a sample from q(x_0)*q*(*x*0), generating a novel data point from the original data distribution.
+As $T \to \infty$ the latent $x_T$ is nearly an [isotropic](https://math.stackexchange.com/questions/1991961/gaussian-distribution-is-isotropic#:~:text=TLDR%3A An isotropic gaussian is,Σ is the covariance matrix.) Gaussian distribution. 
+Therefore if we manage to learn the reverse distribution $q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$
+, we can sample $x_T$ from $\mathcal{N}(0,\mathbf{I})$, 
+run the reverse process and acquire a sample from $q(x_0)$
+, generating a novel data point from the original data distribution.
 
 The question is how we can model the reverse diffusion process.
 
@@ -136,7 +141,7 @@ But how do we train such a model?
 
 ## Training a diffusion model
 
-If we take a step back, we can notice that the combination of q*q* and p*p* is very similar to a variational autoencoder (VAE). Thus, we can train it by optimizing the negative log-likelihood of the training data. After a series of calculations, which we won't analyze here, we can write the evidence lower bound (ELBO) as follows:
+If we take a step back, we can notice that the combination of q and p is very similar to a variational autoencoder (VAE). Thus, we can train it by optimizing the negative log-likelihood of the training data. After a series of calculations, which we won't analyze here, we can write the evidence lower bound (ELBO) as follows:
 
 $\begin{aligned} 
 log p(\mathbf{x}) \geq &\mathbb{E}_{q(x_1 \vert x_0)} 
@@ -180,7 +185,7 @@ $\begin{aligned} q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0) &= \mathca
 
 > Note that $\alpha_t$ and $\bar{\alpha}_t$ depend only on $\beta_t$, so they can be precomputed.
 
-This little trick provides us with a fully tractable ELBO. The above property has one more important side effect, as we already saw in the reparameterization trick, we can represent \mathbf{x}_0**x**0 as
+This little trick provides us with a fully tractable ELBO. The above property has one more important side effect, as we already saw in the reparameterization trick, we can represent $\mathbf{x}_0$as
 
 $\mathbf{x}_0 = \frac{1}{\sqrt{\bar{\alpha}_t}}(\mathbf{x}_t - \sqrt{1 - \bar{\alpha}_t} \boldsymbol{\epsilon}))$,
 
@@ -211,7 +216,7 @@ $L_t^\text{simple} = \mathbb{E}_{\mathbf{x}_0, t, \boldsymbol{\epsilon}} \Big[\|
 The authors found that optimizing the above objective works better than optimizing the original ELBO.
  The proof for both equations can be found in this [excellent post by Lillian Weng](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/#reverse-diffusion-process) or in[ Luo et al. 2022](https://arxiv.org/abs/2208.11970).
 
-Additionally, [Ho et. al 2020](https://arxiv.org/abs/2006.11239) decide to keep the variance fixed and have the network learn only the mean. This was later improved by [Nichol et al. 2021](https://arxiv.org/abs/2102.09672), who decide to let the network learn the covariance matrix (\boldsymbol{\Sigma})(**Σ**) as well (by modifying L_t^\text{simple}*L**t*simple ), achieving better results.
+Additionally, [Ho et. al 2020](https://arxiv.org/abs/2006.11239) decide to keep the variance fixed and have the network learn only the mean. This was later improved by [Nichol et al. 2021](https://arxiv.org/abs/2102.09672), who decide to let the network learn the covariance matrix $(\boldsymbol{\Sigma})$ as well (by modifying $L_t^\text{simple}$, achieving better results.
 
 [![training-sampling-ddpm](assets/images/posts/README/training-sampling-ddpm.png)](https://theaisummer.com/static/411d503d7233bc525088aa275f30f74e/4fa52/training-sampling-ddpm.png)*Training and sampling algorithms of DDPMs. Source: [Ho et al. 2020](https://arxiv.org/abs/2006.11239)*
 
@@ -223,7 +228,7 @@ To this end, [Ho et al.](https://arxiv.org/abs/2006.11239) employed a U-Net. If 
 
 In the original implementation of DDPMs, the U-Net consists of Wide[ ResNet blocks](https://theaisummer.com/skip-connections/#resnet-skip-connections-via-addition), [group normalization](https://theaisummer.com/normalization/#group-normalization-2018) as well as [self-attention](https://theaisummer.com/attention/) blocks.
 
-The diffusion timestep t*t* is specified by adding a sinusoidal [position embedding](https://theaisummer.com/positional-embeddings/) into each residual block. For more details, feel free to visit the [official GitHub repository](https://github.com/hojonathanho/diffusion). For a detailed implementation of the diffusion model, check out this awesome[ post by Hugging Face](https://huggingface.co/blog/annotated-diffusion).
+The diffusion timestep t is specified by adding a sinusoidal [position embedding](https://theaisummer.com/positional-embeddings/) into each residual block. For more details, feel free to visit the [official GitHub repository](https://github.com/hojonathanho/diffusion). For a detailed implementation of the diffusion model, check out this awesome[ post by Hugging Face](https://huggingface.co/blog/annotated-diffusion).
 
 [![unet](assets/images/posts/README/unet.png)](https://theaisummer.com/static/8e35326846f64b64741e92d6ce4cf8b6/58213/unet.png)*The U-Net architecture. Source: [Ronneberger et al.](https://arxiv.org/abs/1505.04597)*
 
