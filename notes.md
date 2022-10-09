@@ -93,23 +93,26 @@ The variance parameter \beta_t can be fixed to a constant or chosen as a schedul
 
 ## Reverse diffusion
 
-As $T \to \infty$ the latent $x_T$ is nearly an [isotropic](https://math.stackexchange.com/questions/1991961/gaussian-distribution-is-isotropic#:~:text=TLDR%3A An isotropic gaussian is,Σ is the covariance matrix.) Gaussian distribution. 
-Therefore if we manage to learn the reverse distribution $q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$
-, we can sample $x_T$ from $\mathcal{N}(0,\mathbf{I})$, 
-run the reverse process and acquire a sample from $q(x_0)$
-, generating a novel data point from the original data distribution.
-
+As $T \to \infty$ the latent $x_T$ is nearly an 
+[isotropic](https://math.stackexchange.com/questions/1991961/gaussian-distribution-is-isotropic#:~:text=TLDR%3A)
+An isotropic gaussian is,$\Sigma$ is the covariance matrix.) Gaussian distribution. 
+Therefore if we manage to learn the reverse distribution $q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$, 
+we can sample $x_T$ from $\mathcal{N}(0,\mathbf{I})$, 
+run the reverse process and acquire a sample from $q(x_0)$, 
+generating a novel data point from the original data distribution.
 The question is how we can model the reverse diffusion process.
 
 ## Approximating the reverse process with a neural network
 
 In practical terms, we don't know $q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$. 
-It's intractable since statistical estimates of $q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$
- require computations involving the data distribution.
+It's intractable since statistical estimates of 
+$q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$
+require computations involving the data distribution.
 
 Instead, we approximate $q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$with a parameterized model $p_{\theta}$
- (e.g. a neural network). Since $q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$
- will also be Gaussian, for small enough \beta_t, we can choose $p_{\theta}$ to be Gaussian and just parameterize the mean and variance:
+(e.g. a neural network). 
+Since $q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$
+will also be Gaussian, for small enough \beta_t, we can choose $p_{\theta}$ to be Gaussian and just parameterize the mean and variance:
 
 $p_\theta(\mathbf{x}_{t-1} \vert \mathbf{x}_t) = \mathcal{N}(\mathbf{x}_{t-1}; \boldsymbol{\mu}_\theta(\mathbf{x}_t, t), \boldsymbol{\Sigma}_\theta(\mathbf{x}_t, t))$
 
@@ -138,7 +141,6 @@ log p(\mathbf{x}) \geq &\mathbb{E}_{q(x_1 \vert x_0)}
 \\ &\sum_{t=2}^T \mathbb{E}_{q(\mathbf{x}_t \vert \mathbf{x}_0)} 
 [D_{KL}(q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0) \vert \vert p_{\theta}(\mathbf{x}_{t-1} 
 \vert \mathbf{x}_t)) ] \\ & = L_0 - L_T - \sum_{t=2}^T L_{t-1} \end{aligned}$
-
 
 
 Let's analyze these terms:
