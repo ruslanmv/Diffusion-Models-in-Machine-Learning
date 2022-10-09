@@ -150,11 +150,7 @@ log p(\mathbf{x}) \geq &\mathbb{E}_{q(x_1 \vert x_0)}
 
 Let's analyze these terms:
 
-1. The $\mathbb{E}_{q(x_1 \vert x_0)} [log p_{\theta} (\mathbf{x}_0 \vert \mathbf{x}_1)]$
-
-
-
- term can been as a reconstruction term, similar to the one in the ELBO of a variational autoencoder. 
+1. The $\mathbb{E}_{q(x_1 \vert x_0)} [log p_{\theta} (\mathbf{x}_0 \vert \mathbf{x}_1)]$ term can been as a reconstruction term, similar to the one in the ELBO of a variational autoencoder. 
  In[ Ho et al 2020](https://arxiv.org/abs/2006.11239) , this term is learned using a separate decoder.
 2. $D_{KL}(q(\mathbf{x}_T \vert \mathbf{x}_0) \vert\vert p(\mathbf{x}_T))$
  shows how close $\mathbf{x}_T$ is to the standard Gaussian. 
