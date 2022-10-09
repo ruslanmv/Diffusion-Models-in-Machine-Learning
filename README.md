@@ -8,7 +8,7 @@ In particular the theory behind the DALLE-2 and IMAGEN from Google.
 
 We are interested to know  how the diffusion works. The achievement of those technologies has been possible thanks to the long scientific works during the History.
 
-We are going to  build an interesting program in python that will generate images by using the diffusion and recap the theory of the diffusion process. 
+In this blog post, we are going to  build an interesting program in python that will generate images by using the diffusion and recap the theory of the diffusion process like the following
 
 ### MNIST
 
@@ -24,18 +24,46 @@ We are going to  build an interesting program in python that will generate image
 
 
 
-## Step 1. Creation of the environment
 
-In this project we require a computer with GPU, you can use also SageMaker in AWS or simply you can install miniconda in your personal computer.
 
-First you need to install miniconda at this [link](https://docs.conda.io/en/latest/miniconda.html)
+## Step 1.  Installation of the libraries.
+
+In this project we require a computer with GPU,  for this reason we can work in AWS SageMaker  Notebook, then you simply  click **File>New>Terminal** and type
+
+```
+wget https://raw.githubusercontent.com/ruslanmv/Diffusion-Models-in-Machine-Learning/master/setup.sh
+```
+
+and type
+
+```
+sh setup.sh
+```
+
+and skip the next step. 
+
+Otherwise if you are working locally, clone the following repository
+
+```
+git clone https://github.com/ruslanmv/Diffusion-Models-in-Machine-Learning.git
+```
+
+then
+
+```
+cd Diffusion-Models-in-Machine-Learning
+```
+
+## Step 2. Creation of the environment
+
+You can install miniconda at this [link](https://docs.conda.io/en/latest/miniconda.html) in your personal computer.
 
 ![image-20221009112058614](assets/images/posts/README/image-20221009112058614.png)
 
-I will create an environment called **difussion**, but you can put the name that you like.
+we create an environment called **diffusion**, but you can put the name that you like.
 
 ```
-conda create -n difussion python==3.8
+conda create -n diffusion python==3.8 jupyter
 ```
 
 If you are running anaconda for first time, you should init conda with the shell that you want to work, in this case I choose the cmd.exe
@@ -47,21 +75,20 @@ conda init cmd.exe
 and then close and open the terminal
 
 ```
-conda activate difussion
+conda activate diffusion
 ```
 
 then in your terminal type the following commands:
 
 ```
 conda install ipykernel
-python -m ipykernel install --user --name difussion --display-name "Python (difussion)"
 ```
 
-Use the provided [`entry.ipynb`](./entry.ipynb) notebook to train model and sample generated images. 
+```
+python -m ipykernel install --user --name difussion --display-name "Python (diffusion)"
+```
 
-Supports MNIST, Fashion-MNIST and CIFAR datasets.
-
-## Requirements
+In this project we are going to use the following libraries:
 
 * PyTorch
 * PyTorch-Lightning
@@ -71,6 +98,24 @@ Supports MNIST, Fashion-MNIST and CIFAR datasets.
 ```
 pip install  torch pytorch_lightning  imageio torchvision
 ```
+
+## Step 3
+
+Use the provided [`entry.ipynb`](./entry.ipynb) notebook to train model and sample generated images. 
+
+That supports MNIST, Fashion-MNIST and CIFAR datasets.
+
+Then you select the Kernel **Python (diffusion)**
+
+![image-20221009135950860](assets/images/posts/README/image-20221009135950860.png)
+
+If you want uninstall you enviroment
+
+```
+conda env remove -n  diffusion
+```
+
+
 
 # Introduction
 
