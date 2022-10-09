@@ -3,15 +3,12 @@
 Diffusion models are fundamentally different from all the previous generative methods. 
 Intuitively, they aim to decompose the image generation process (sampling) in many small “denoising” steps.
 The intuition behind this is that the model can correct itself over these small steps and gradually produce a good sample. 
-To some extent, this idea of refining the representation has already been used in models 
-like [alphafold](https://youtu.be/nGVFbPKrRWQ?t=1148). But hey, nothing comes at zero-cost.  This iterative process makes them slow at sampling, 
-at least compared to [GANs](https://theaisummer.com/gan-computer-vision/). A nice summary of the paper   [Ho et al., 2020](https://arxiv.org/abs/2006.11239).  
-by the authors is available [here](https://hojonathanho.github.io/diffusion/). 
+To some extent, this idea of refining the representation has already been used in models  like [alphafold](https://youtu.be/nGVFbPKrRWQ?t=1148). But hey, nothing comes at zero-cost.  This iterative process makes them slow at sampling, at least compared to [GANs](https://theaisummer.com/gan-computer-vision/). A nice summary of the paper   [Ho et al., 2020](https://arxiv.org/abs/2006.11239) by the authors is available [here](https://hojonathanho.github.io/diffusion/). 
 
 ## Diffusion process
 
 The basic idea behind diffusion models is rather simple.  They take the input image $\mathbf{x}_0$ and gradually add Gaussian noise to it through a series of T steps. We will call this the forward process. Notably, this is unrelated to the forward pass of a neural network.
-If you'd like, this part is necessary to generate the targets for our neural network (the image after applying  $t<T$ noise steps).
+If you'd like, this part is necessary to generate the targets for our neural network (the image after applying  t<T noise steps).
 
 Afterward, a neural network is trained to recover the original data by reversing the noising process.  By being able to model the reverse process, we can generate new data.  This is the so-called reverse diffusion process or, in general, the sampling process of a generative model.
 
