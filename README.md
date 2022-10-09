@@ -4,11 +4,7 @@
 
 Dear all, today we are going to discuss the buildings blocks of the Diffusion Models applied to Artificial Intelligence.
 
-In particular the theory behind the DALLE-2 and IMAGEN from Google.
-
-We are interested to know  how the diffusion works. The achievement of those technologies has been possible thanks to the long scientific works during the History.
-
-In this blog post, we are going to  build an interesting program in python that will generate images by using the diffusion and recap the theory of the diffusion process like the following
+We are interested to know  how the diffusion works. The achievement of those technologies has been possible thanks to the long scientific works during the History. In this blog post, we are going to  build an interesting program in python that will generate images by using the diffusion and recap the theory of the diffusion process like the following
 
 ### MNIST
 
@@ -22,7 +18,18 @@ In this blog post, we are going to  build an interesting program in python that 
 
 ![CIFAR Generation](assets/images/posts/README/cifar-166522978198127.gif)
 
+# Introduction
 
+One of the greatest ideas that allows the Artificial Intelligence build images from a text is the Markov chain. Andrey Markov studied Markov processes in the early 20th century, publishing his first paper on the topic in 1906. Important people contributed to his research such Heinri Poincare , Ehrenfest , Andrey Kolmogorov.Kolmogorov was partly inspired by Louis Bachelier's 1900 work on fluctuations in the stock market as well as Norbert Wiener's work on Einstein's model of Brownian movement.
+
+
+A Markov chain or Markov process is a stochastic model describing a sequence of possible events in which the probability of each event depends only on the state attained in the previous event.
+
+A Markov process is a stochastic process that satisfies the Markov property. In simpler terms, it is a process for which predictions can be made regarding future outcomes based solely on its present state and—most importantly—such predictions are just as good as the ones that could be made knowing the process's full history. In other words, conditional on the present state of the system, its future and past states are independent.
+
+Diffusion models are a new class of state-of-the-art generative models that generate diverse high-resolution images. They have already attracted a lot of attention after OpenAI, Nvidia and Google managed to train large-scale models. Example architectures that are based on diffusion models are GLIDE, DALLE-2, Imagen, and the full open-source stable diffusion.
+
+But what is the main principle behind them?
 
 
 
@@ -63,7 +70,7 @@ You can install miniconda at this [link](https://docs.conda.io/en/latest/minicon
 we create an environment called **diffusion**, but you can put the name that you like.
 
 ```
-conda create -n diffusion python==3.8 jupyter
+conda create -n diffusion python==3.8 jupyter -y
 ```
 
 If you are running anaconda for first time, you should init conda with the shell that you want to work, in this case I choose the cmd.exe
@@ -81,7 +88,7 @@ conda activate diffusion
 then in your terminal type the following commands:
 
 ```
-conda install ipykernel
+conda install ipykernel -y
 ```
 
 ```
@@ -101,7 +108,7 @@ pip install  torch pytorch_lightning  imageio torchvision
 
 ## Step 3
 
-Use the provided [`entry.ipynb`](./entry.ipynb) notebook to train model and sample generated images. 
+Use the provided [`entry-MNIST.ipynb`](./entry-MNIST.ipynb) notebook to train model and sample generated images. 
 
 That supports MNIST, Fashion-MNIST and CIFAR datasets.
 
@@ -115,32 +122,27 @@ If you want uninstall you enviroment
 conda env remove -n  diffusion
 ```
 
+List all kernels and grap the name of the kernel you want to remove
+
+```
+jupyter kernelspec list
+```
+
+Remove it
+
+```
+jupyter kernelspec remove diffusion
+```
 
 
-# Introduction
 
-One of the greatest ideas that allows the Artificial Intelligence build images from a text is the Markov chain.
-
-Andrey Markov studied Markov processes in the early 20th century, publishing his first paper on the topic in 1906.
-Important people contributed to his research such Heinri Poincare ,
-Ehrenfest , Andrey Kolmogorov.
-
-Kolmogorov was partly inspired by Louis Bachelier's 1900 work on fluctuations in the stock market as well as Norbert Wiener's work on Einstein's model of Brownian movement.
-
-
-A Markov chain or Markov process is a stochastic model describing a sequence of possible events in which the probability of each event depends only on the state attained in the previous event.
-
-A Markov process is a stochastic process that satisfies the Markov property. In simpler terms, it is a process for which predictions can be made regarding future outcomes based solely on its present state and—most importantly—such predictions are just as good as the ones that could be made knowing the process's full history. In other words, conditional on the present state of the system, its future and past states are independent.
-
-Diffusion models are a new class of state-of-the-art generative models that generate diverse high-resolution images. They have already attracted a lot of attention after OpenAI, Nvidia and Google managed to train large-scale models. Example architectures that are based on diffusion models are GLIDE, DALLE-2, Imagen, and the full open-source stable diffusion.
-
-But what is the main principle behind them?
+## Denoising Diffusion Probabilistic Model
 
 
 
 `Denoising Diffusion Probabilistic Models`, the recent paper by [Ho et al., 2020](https://arxiv.org/abs/2006.11239). A nice summary of the paper by the authors is available [here](https://hojonathanho.github.io/diffusion/). 
 
-In this blog post, we will dig our way up from the basic principles. There are already a bunch of different diffusion-based architectures. We will focus on the most prominent one, which is the Denoising Diffusion Probabilistic Models (DDPM) as initialized by [Sohl-Dickstein et al](https://arxiv.org/abs/1503.03585) and then proposed by [Ho. et al 2020](https://arxiv.org/abs/2006.11239). Various other approaches will be discussed to a smaller extent such as stable diffusion and score-based models.
+
 
 > Diffusion models are fundamentally different from all the previous generative methods. Intuitively, they aim to decompose the image generation process (sampling) in many small “denoising” steps.
 
@@ -148,11 +150,13 @@ The intuition behind this is that the model can correct itself over these small 
 
 ## Diffusion process
 
-The basic idea behind diffusion models is rather simple. They take the input image \mathbf{x}_0**x**0 and gradually add Gaussian noise to it through a series of T*T* steps. We will call this the forward process. Notably, this is unrelated to the forward pass of a neural network. If you'd like, this part is necessary to generate the targets for our neural network (the image after applying t<T*t*<*T* noise steps).
+The basic idea behind diffusion models is rather simple. 
+
+They take the input image $\mathbf{x}_0$
+
+and gradually add Gaussian noise to it through a series of T steps. We will call this the forward process. Notably, this is unrelated to the forward pass of a neural network. If you'd like, this part is necessary to generate the targets for our neural network (the image after applying t<T noise steps).
 
 Afterward, a neural network is trained to recover the original data by reversing the noising process. By being able to model the reverse process, we can generate new data. This is the so-called reverse diffusion process or, in general, the sampling process of a generative model.
-
-How? Let’s dive into the math to make it crystal clear.
 
 ## Forward diffusion
 
