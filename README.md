@@ -351,7 +351,7 @@ md("![](%s)"%(gif))
 The results for MNIST:
 
 
-![](lightning_logs/MNIST/version_0/pred.gif)
+
 
 ![pred-mnist](assets/images/posts/README/pred-mnist.gif)
 
@@ -366,4 +366,8 @@ Fashion-MNIST:
 
 
 ![pred-fashion](assets/images/posts/README/pred-fashion.gif)
+
+Denoising Diffusion Probabilistic Models  it is discussed in the following section [here](notes.md)
+
+
 
