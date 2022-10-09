@@ -85,7 +85,7 @@ conda install ipykernel
 ```
 
 ```
-python -m ipykernel install --user --name difussion --display-name "Python (diffusion)"
+python -m ipykernel install --user --name diffusion --display-name "Python (diffusion)"
 ```
 
 In this project we are going to use the following libraries:
