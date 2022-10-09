@@ -4,34 +4,23 @@ Diffusion models are fundamentally different from all the previous generative me
 Intuitively, they aim to decompose the image generation process (sampling) in many small “denoising” steps.
 The intuition behind this is that the model can correct itself over these small steps and gradually produce a good sample. 
 To some extent, this idea of refining the representation has already been used in models 
-like [alphafold](https://youtu.be/nGVFbPKrRWQ?t=1148).
-But hey, nothing comes at zero-cost.  This iterative process makes them slow at sampling, 
-at least compared to [GANs](https://theaisummer.com/gan-computer-vision/).
-
-A nice summary of the paper   [Ho et al., 2020](https://arxiv.org/abs/2006.11239).  
+like [alphafold](https://youtu.be/nGVFbPKrRWQ?t=1148). But hey, nothing comes at zero-cost.  This iterative process makes them slow at sampling, 
+at least compared to [GANs](https://theaisummer.com/gan-computer-vision/). A nice summary of the paper   [Ho et al., 2020](https://arxiv.org/abs/2006.11239).  
 by the authors is available [here](https://hojonathanho.github.io/diffusion/). 
-
 
 ## Diffusion process
 
-The basic idea behind diffusion models is rather simple. 
+The basic idea behind diffusion models is rather simple.  They take the input image $\mathbf{x}_0$ and gradually add Gaussian noise to it through a series of T steps. We will call this the forward process. Notably, this is unrelated to the forward pass of a neural network.
+If you'd like, this part is necessary to generate the targets for our neural network (the image after applying  $t<T$ noise steps).
 
-They take the input image $\mathbf{x}_0$ and gradually add Gaussian noise to it through a series of T steps.
-We will call this the forward process. Notably, this is unrelated to the forward pass of a neural network.
-If you'd like, this part is necessary to generate the targets for our neural network (the image after applying 
-$t<T$ noise steps).
-
-Afterward, a neural network is trained to recover the original data by reversing the noising process. 
-By being able to model the reverse process, we can generate new data. 
-This is the so-called reverse diffusion process or, in general, the sampling process of a generative model.
+Afterward, a neural network is trained to recover the original data by reversing the noising process.  By being able to model the reverse process, we can generate new data.  This is the so-called reverse diffusion process or, in general, the sampling process of a generative model.
 
 ## Forward diffusion
 
 Diffusion models can be seen as latent variable models. Latent means that we are referring to a hidden continuous feature space.
 In such a way, they may look similar to variational autoencoders (VAEs).
 
-In practice, they are formulated using a Markov chain of T steps. 
-Here, a Markov chain means that each step only depends on the previous one,
+In practice, they are formulated using a Markov chain of T steps.  Here, a Markov chain means that each step only depends on the previous one,
 which is a mild assumption. Importantly, we are not constrained to using a specific type of neural network, unlike 
 [flow-based models](https://lilianweng.github.io/posts/2018-10-13-flow-models/).
 
@@ -68,12 +57,11 @@ Mathematically, this is the posterior probability and is defined as:
 
 $q(\mathbf{x}_{1:T} \vert \mathbf{x}_0) = \prod^T_{t=1} q(\mathbf{x}_t \vert \mathbf{x}_{t-1})$
 
-
 The symbol :: in $q(\mathbf{x}_{1:T})$
 
 states that we apply q repeatedly from timestep 1 to T. It's also called trajectory.
 
-For timestep t=500 < T we need to apply q 500 times in order to sample \mathbf{x}_t. 
+For timestep $t=500 < T$ we need to apply q 500 times in order to sample \mathbf{x}_t. 
 The reparametrization trick provides a magic remedy to this.
 
 ### The reparameterization trick: tractable closed-form sampling at any timestep
@@ -113,7 +101,7 @@ run the reverse process and acquire a sample from $q(x_0)$
 
 The question is how we can model the reverse diffusion process.
 
-### Approximating the reverse process with a neural network
+## Approximating the reverse process with a neural network
 
 In practical terms, we don't know $q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$. 
 It's intractable since statistical estimates of $q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$
@@ -155,11 +143,10 @@ log p(\mathbf{x}) \geq &\mathbb{E}_{q(x_1 \vert x_0)}
 
 Let's analyze these terms:
 
-1. The $\mathbb{E}_{q(x_1 \vert x_0)} [log p_{\theta} (\mathbf{x}_0 \vert \mathbf{x}_1)]$ term can been as a reconstruction term, similar to the one in the ELBO of a variational autoencoder. 
- In[ Ho et al 2020](https://arxiv.org/abs/2006.11239) , this term is learned using a separate decoder.
+1. The $\mathbb{E}_{q(x_1 \vert x_0)} [log p_{\theta} (\mathbf{x}_0 \vert \mathbf{x}_1)]$ term can been as a reconstruction term, similar to the one in the ELBO of a variational autoencoder.  In[ Ho et al 2020](https://arxiv.org/abs/2006.11239) , this term is learned using a separate decoder.
 2. $D_{KL}(q(\mathbf{x}_T \vert \mathbf{x}_0) \vert\vert p(\mathbf{x}_T))$
  shows how close $\mathbf{x}_T$ is to the standard Gaussian. 
-  Note that the entire term has no trainable parameters so it's ignored during training.
+    Note that the entire term has no trainable parameters so it's ignored during training.
 3. The third term $\sum_{t=2}^T L_{t-1}$, also referred as $L_t$, 
 formulate the difference between the desired denoising steps
 $ p_{\theta}(\mathbf{x}_{t-1} \vert \mathbf{x}_t))$
@@ -497,7 +484,7 @@ Finally, for more associations between [diffusion models and VAE](https://angust
 
 
 
-<img src="./images/denoising-diffusion.png" width="500px"></img>
+<img src="./assets/images/posts/README/denoising-diffusion.png" width="500px"></img>
 
 Implementation of <a href="https://arxiv.org/abs/2006.11239">Denoising Diffusion Probabilistic Model</a> in Pytorch. It is a new approach to generative modeling that may <a href="https://ajolicoeur.wordpress.com/the-new-contender-to-gans-score-matching-with-langevin-sampling/">have the potential</a> to rival GANs. It uses denoising score matching to estimate the gradient of the data distribution, followed by Langevin sampling to sample from the true distribution.
 
@@ -510,8 +497,6 @@ Youtube AI Educators - <a href="https://www.youtube.com/watch?v=W-O7AZNzbzQ">Yan
 <a href="https://huggingface.co/blog/annotated-diffusion">Annotated code</a> by Research Scientists / Engineers from <a href="https://huggingface.co/">🤗 Huggingface</a>
 
 Update: Turns out none of the technicalities really matters at all | <a href="https://arxiv.org/abs/2208.09392">"Cold Diffusion" paper</a>
-
-
 
 ## Install
 
