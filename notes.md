@@ -17,9 +17,9 @@ by the authors is available [here](https://hojonathanho.github.io/diffusion/).
 The basic idea behind diffusion models is rather simple. 
 
 They take the input image $\mathbf{x}_0$ and gradually add Gaussian noise to it through a series of T steps.
- We will call this the forward process. Notably, this is unrelated to the forward pass of a neural network.
- If you'd like, this part is necessary to generate the targets for our neural network (the image after applying $t<T$ noise steps).
-
+We will call this the forward process. Notably, this is unrelated to the forward pass of a neural network.
+If you'd like, this part is necessary to generate the targets for our neural network (the image after applying 
+$t<T$ noise steps).
 Afterward, a neural network is trained to recover the original data by reversing the noising process. 
 By being able to model the reverse process, we can generate new data. 
 This is the so-called reverse diffusion process or, in general, the sampling process of a generative model.
